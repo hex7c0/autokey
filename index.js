@@ -4,7 +4,7 @@
  * @module autokey
  * @package autokey
  * @subpackage main
- * @version 0.0.1
+ * @version 1.1.0
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -13,6 +13,43 @@
 /*
  * functions
  */
+/**
+ * body cipher
+ * 
+ * @function body
+ * @param {Buffer} raw - data
+ * @param {Array} key - user key
+ * @param {Boolean} [minus] - if minus, decode
+ * @return {Buffer}
+ */
+function body(str,key,minus) {
+
+    str = new Buffer(str);
+    var tmp;
+    var res = [];
+    var first = key;
+    var cipher = first.length, ciphers = cipher;
+    if (minus) {
+        for (var i = 0, ii = str.length; i < ii; i++) {
+            if (ciphers > 0) {
+                res[i] = (str[i] - first.shift()) % 256;
+                ciphers--;
+            } else {
+                res[i] = (str[i] - res[i - cipher]) % 256;
+            }
+        }
+    } else {
+        for (var i = 0, ii = str.length; i < ii; i++) {
+            if (ciphers > 0) {
+                res[i] = (str[i] + first.shift()) % 256;
+                ciphers--;
+            } else {
+                res[i] = (str[i] + str[i - cipher]) % 256;
+            }
+        }
+    }
+    return new Buffer(res);
+};
 /**
  * export class
  * 
@@ -63,42 +100,6 @@ AUTOKEY.prototype.change = function(key) {
     return;
 };
 /**
- * AUTOKEY body
- * 
- * @function body
- * @param {Buffer} raw - data
- * @param {[Boolean]} minus - -
- * @return {Buffer}
- */
-AUTOKEY.prototype.body = function(str,minus) {
-
-    str = new Buffer(str);
-    var tmp;
-    var res = [];
-    var first = this.key.slice(0);
-    var cipher = first.length, ciphers = cipher;
-    if (minus) {
-        for (var i = 0, ii = str.length; i < ii; i++) {
-            if (ciphers > 0) {
-                res[i] = (str[i] - first.shift()) % 256;
-                ciphers--;
-            } else {
-                res[i] = (str[i] - res[i - cipher]) % 256;
-            }
-        }
-    } else {
-        for (var i = 0, ii = str.length; i < ii; i++) {
-            if (ciphers > 0) {
-                res[i] = (str[i] + first.shift()) % 256;
-                ciphers--;
-            } else {
-                res[i] = (str[i] + str[i - cipher]) % 256;
-            }
-        }
-    }
-    return new Buffer(res);
-};
-/**
  * AUTOKEY encode string
  * 
  * @function encodeString
@@ -107,7 +108,7 @@ AUTOKEY.prototype.body = function(str,minus) {
  */
 AUTOKEY.prototype.encodeString = function(str) {
 
-    return this.body(str);
+    return body(str,this.key.slice(0));
 };
 /**
  * AUTOKEY encode array
@@ -118,7 +119,7 @@ AUTOKEY.prototype.encodeString = function(str) {
  */
 AUTOKEY.prototype.encodeArray = function(arr) {
 
-    var parse = this.body(arr);
+    var parse = body(arr,this.key.slice(0));
     var returned = new Array(parse.length);
     for (var i = 0, ii = parse.length; i < ii; i++) {
         returned[i] = parse[i];
@@ -134,7 +135,7 @@ AUTOKEY.prototype.encodeArray = function(arr) {
  */
 AUTOKEY.prototype.encodeBuffer = function(buff) {
 
-    return this.body(buff);
+    return body(buff,this.key.slice(0));
 };
 /**
  * AUTOKEY mixed encode. Alias
@@ -146,11 +147,11 @@ AUTOKEY.prototype.encodeBuffer = function(buff) {
 AUTOKEY.prototype.encode = function(boh) {
 
     if (typeof (boh) == 'string') {
-        return this.encodeString(boh);
+        return this.encodeString(boh,this.key.slice(0));
     } else if (Array.isArray(boh)) {
-        return this.encodeArray(boh);
+        return this.encodeArray(boh,this.key.slice(0));
     } else if (Buffer.isBuffer(boh)) {
-        return this.encodeBuffer(boh);
+        return this.encodeBuffer(boh,this.key.slice(0));
     } else {
         throw new Error('Invalid data');
     }
@@ -165,7 +166,7 @@ AUTOKEY.prototype.encode = function(boh) {
  */
 AUTOKEY.prototype.decodeString = function(str) {
 
-    return this.body(str,true).toString();
+    return body(str,this.key.slice(0),true).toString();
 };
 /**
  * AUTOKEY decode array
@@ -176,7 +177,7 @@ AUTOKEY.prototype.decodeString = function(str) {
  */
 AUTOKEY.prototype.decodeArray = function(arr) {
 
-    var parse = this.body(arr,true);
+    var parse = body(arr,this.key.slice(0),true);
     var returned = new Array(parse.length);
     for (var i = 0, ii = parse.length; i < ii; i++) {
         returned[i] = parse[i];
@@ -192,7 +193,7 @@ AUTOKEY.prototype.decodeArray = function(arr) {
  */
 AUTOKEY.prototype.decodeBuffer = function(buff) {
 
-    return this.body(buff,true);
+    return body(buff,this.key.slice(0),true);
 };
 /**
  * AUTOKEY mixed decode. Alias
@@ -204,11 +205,11 @@ AUTOKEY.prototype.decodeBuffer = function(buff) {
 AUTOKEY.prototype.decode = function(boh) {
 
     if (typeof (boh) == 'string') {
-        return this.decodeString(boh);
+        return this.decodeString(boh,this.key.slice(0),true);
     } else if (Array.isArray(boh)) {
-        return this.decodeArray(boh);
+        return this.decodeArray(boh,this.key.slice(0),true);
     } else if (Buffer.isBuffer(boh)) {
-        return this.decodeBuffer(boh);
+        return this.decodeBuffer(boh,this.key.slice(0),true);
     } else {
         throw new Error('Invalid data');
     }
