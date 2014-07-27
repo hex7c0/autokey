@@ -14,7 +14,7 @@
  */
 // import
 try {
-    var autokey = require('../index.js'); // use require('autokey') instead
+    var autokey = require('../index.min.js'); // use require('autokey') instead
 } catch (MODULE_NOT_FOUND) {
     console.error(MODULE_NOT_FOUND);
     process.exit(1);
