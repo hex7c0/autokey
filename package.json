@@ -2,7 +2,7 @@
   "name": "autokey",
   "version": "1.2.0",
   "description": "autokey stream cipher",
-  "main": "index.js",
+  "main": "index.min.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/hex7c0/autokey.git"
