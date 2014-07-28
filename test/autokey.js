@@ -82,4 +82,37 @@ describe('autokey',function() {
         done();
     });
 
+    it('file - should read encrypted file',function(done) {
+
+        var fs = require('fs');
+        a = 'hex7c0';
+        b = new Buffer('ciao I\'m hex7c0\nHow are you?\n:D');
+        var cipher = autokey(a);
+
+        var d = cipher.encodeBuffer(b); // encrypt
+        // use {encoding: null} when you write buffer
+        fs.writeFile('crypted',d,{
+            encoding: null
+        },function(err) {
+
+            if (err)
+                return done(err);
+            // use {encoding: null} when you read buffer
+            fs.readFile('crypted',{
+                encoding: null
+            },function(err,data) {
+
+                if (err)
+                    return done(err);
+                var e = cipher.decodeBuffer(data); // decrypt
+                assert.deepEqual(b,e,'clear');
+                assert.notDeepEqual(b,d,'orig - encrypt');
+                assert.notDeepEqual(e,d,'encrypt - decrypt');
+                fs.unlink('crypted',function() {
+
+                    done();
+                });
+            });
+        });
+    });
 });

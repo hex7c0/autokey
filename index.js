@@ -82,7 +82,6 @@ function AUTOKEY(key) {
  * 
  * @function change
  * @param {String|Array|Buffer} key - user key
- * @return
  */
 AUTOKEY.prototype.change = function(key) {
 
