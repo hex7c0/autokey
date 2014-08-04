@@ -18,6 +18,10 @@ or
 ```
 git clone git://github.com/hex7c0/autokey.git
 ```
+or
+```
+http://supergiovane.tk/#/autokey
+```
 
 ## API
 
