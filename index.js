@@ -89,7 +89,7 @@ AUTOKEY.prototype.change = function(key) {
     if (Array.isArray(key)) {
         this.key = key;
     } else if (typeof (key) == 'string' || Buffer.isBuffer(key)) {
-        key = new Buffer(key);
+        var key = new Buffer(key);
         for (var i = 0, ii = key.length; i < ii; i++) {
             this.key[i] = key[i];
         }
@@ -146,14 +146,13 @@ AUTOKEY.prototype.encodeBuffer = function(buff) {
 AUTOKEY.prototype.encode = function(boh) {
 
     if (typeof (boh) == 'string') {
-        return this.encodeString(boh,this.key.slice(0));
+        return this.encodeString(boh);
     } else if (Array.isArray(boh)) {
-        return this.encodeArray(boh,this.key.slice(0));
+        return this.encodeArray(boh);
     } else if (Buffer.isBuffer(boh)) {
-        return this.encodeBuffer(boh,this.key.slice(0));
-    } else {
-        throw new Error('Invalid data');
+        return this.encodeBuffer(boh);
     }
+    throw new Error('Invalid data');
     return;
 };
 /**
@@ -204,13 +203,12 @@ AUTOKEY.prototype.decodeBuffer = function(buff) {
 AUTOKEY.prototype.decode = function(boh) {
 
     if (typeof (boh) == 'string') {
-        return this.decodeString(boh,this.key.slice(0),true);
+        return this.decodeString(boh);
     } else if (Array.isArray(boh)) {
-        return this.decodeArray(boh,this.key.slice(0),true);
+        return this.decodeArray(boh);
     } else if (Buffer.isBuffer(boh)) {
-        return this.decodeBuffer(boh,this.key.slice(0),true);
-    } else {
-        throw new Error('Invalid data');
+        return this.decodeBuffer(boh);
     }
+    throw new Error('Invalid data');
     return;
 };
