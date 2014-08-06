@@ -1,4 +1,4 @@
-# [autokey](https://github.com/hex7c0/autokey)
+# [autokey](http://supergiovane.tk/#/autokey)
 [![NPM version](https://badge.fury.io/js/autokey.svg)](http://badge.fury.io/js/autokey)
 [![Build Status](https://travis-ci.org/hex7c0/autokey.svg?branch=master)](https://travis-ci.org/hex7c0/autokey)
 [![devDependency Status](https://david-dm.org/hex7c0/autokey/dev-status.svg)](https://david-dm.org/hex7c0/autokey#info=devDependencies)
@@ -64,9 +64,10 @@ for decoding, change "encode*" to "decode*"
 autokey.decode('string');
 ```
 
-### autokey(param)
+### autokey(param,[lodash])
 
  - `param` - **String | Array | Buffer** Your key *(default "throw Error")*
+ - `lodash` - **Boolean** Use lodash library (check [benchmark](https://github.com/hex7c0/autokey/tree/master/test/benchmark.js) test for right decision) *(default "disabled")*
 
 #### Examples
 
