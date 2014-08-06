@@ -26,10 +26,10 @@ try {
  */
 describe('autokey',function() {
 
-    var a;// key
-    var b;// data
+    var a; // key
+    var b; // data
 
-    it('string - should return some string',function(done) {
+    it('string - should return same string',function(done) {
 
         a = 'pippo';
         b = 'ciao';
@@ -39,10 +39,20 @@ describe('autokey',function() {
         assert.deepEqual(b,e,'clear');
         assert.notDeepEqual(b,d,'orig - encrypt');
         assert.notDeepEqual(e,d,'encrypt - decrypt');
+
+        var cipher = autokey(a,true);
+        var dd = cipher.encodeString(b); // encrypt
+        var ee = cipher.decodeString(dd); // decrypt
+        assert.deepEqual(b,ee,'lodash');
+        assert.notDeepEqual(b,dd,'orig - encrypt');
+        assert.notDeepEqual(ee,dd,'encrypt - decrypt');
+
+        assert.deepEqual(d,dd,'encrypt');
+        assert.deepEqual(e,ee,'decrypt');
         done();
     });
 
-    it('array - should return some array',function(done) {
+    it('array - should return same array',function(done) {
 
         a = [112,105,112,112,111];
         b = [99,105,97,111];
@@ -52,10 +62,20 @@ describe('autokey',function() {
         assert.deepEqual(b,e,'clear');
         assert.notDeepEqual(b,d,'orig - encrypt');
         assert.notDeepEqual(e,d,'encrypt - decrypt');
+
+        var cipher = autokey(a,true);
+        var dd = cipher.encodeArray(b); // encrypt
+        var ee = cipher.decodeArray(dd); // decrypt
+        assert.deepEqual(b,ee,'lodash');
+        assert.notDeepEqual(b,dd,'orig - encrypt');
+        assert.notDeepEqual(ee,dd,'encrypt - decrypt');
+
+        assert.deepEqual(d,dd,'encrypt');
+        assert.deepEqual(e,ee,'decrypt');
         done();
     });
 
-    it('buffer - should return some buffer',function(done) {
+    it('buffer - should return same buffer',function(done) {
 
         a = new Buffer('pippo');
         b = new Buffer('ciao');
@@ -65,6 +85,16 @@ describe('autokey',function() {
         assert.deepEqual(b,e,'clear');
         assert.notDeepEqual(b,d,'orig - encrypt');
         assert.notDeepEqual(e,d,'encrypt - decrypt');
+
+        var cipher = autokey(a,true);
+        var dd = cipher.encodeBuffer(b); // encrypt
+        var ee = cipher.decodeBuffer(dd); // decrypt
+        assert.deepEqual(b,ee,'lodash');
+        assert.notDeepEqual(b,dd,'orig - encrypt');
+        assert.notDeepEqual(ee,dd,'encrypt - decrypt');
+
+        assert.deepEqual(d,dd,'encrypt');
+        assert.deepEqual(e,ee,'decrypt');
         done();
     });
 
