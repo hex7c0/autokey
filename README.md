@@ -1,4 +1,5 @@
 # [autokey](http://supergiovane.tk/#/autokey)
+
 [![NPM version](https://badge.fury.io/js/autokey.svg)](http://badge.fury.io/js/autokey)
 [![Build Status](https://travis-ci.org/hex7c0/autokey.svg?branch=master)](https://travis-ci.org/hex7c0/autokey)
 [![devDependency Status](https://david-dm.org/hex7c0/autokey/dev-status.svg)](https://david-dm.org/hex7c0/autokey#info=devDependencies)
@@ -11,16 +12,12 @@ my original [python code](https://github.com/hex7c0/EncryptoPy/blob/master/modul
 
 Install through NPM
 
-```
+```bash
 npm install autokey
 ```
 or
-```
+```bash
 git clone git://github.com/hex7c0/autokey.git
-```
-or
-```
-http://supergiovane.tk/#/autokey
 ```
 
 ## API
@@ -32,7 +29,7 @@ var autokey = require('autokey')('secret_key');
 autokey.encodeString('foo');
 ```
 
-### methods
+### Methods
 
 change your key (warning)
 ```js
@@ -64,16 +61,18 @@ for decoding, change "encode*" to "decode*"
 autokey.decode('string');
 ```
 
-### autokey(param,[lodash])
+### autokey(key,[lodash])
 
- - `param` - **String | Array | Buffer** Your key *(default "throw Error")*
+#### key
+
+ - `key` - **String | Array | Buffer** Your key *(default "throw Error")*
+
+#### [lodash]
+
  - `lodash` - **Boolean** Use lodash library (check [benchmark](https://github.com/hex7c0/autokey/tree/master/test/benchmark.js) test for right decision) *(default "disabled")*
 
-#### Examples
+## Examples
 
 Take a look at my [examples](https://github.com/hex7c0/autokey/tree/master/examples)
 
-## License
-Copyright (c) 2014 hex7c0
-
-Licensed under the GPLv3 license
+### [License GPLv3](http://opensource.org/licenses/GPL-3.0)
