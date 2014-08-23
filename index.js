@@ -4,7 +4,7 @@
  * @module autokey
  * @package autokey
  * @subpackage main
- * @version 1.3.0
+ * @version 1.3.2
  * @author hex7c0 <hex7c0@gmail.com>
  * @copyright hex7c0 2014
  * @license GPLv3
@@ -28,7 +28,7 @@ var min = __dirname + '/min/lib/';
  * @params {Boolean} [lodash] - flag
  * @return {AUTOKEY}
  */
-module.exports = function autokey(key,lodash) {
+module.exports = function autokey(key, lodash) {
 
     if (lodash) {
         return require(min + 'lodash.js')(key);
