@@ -2,7 +2,7 @@
 
 [![NPM version](https://badge.fury.io/js/autokey.svg)](http://badge.fury.io/js/autokey)
 [![Build Status](https://travis-ci.org/hex7c0/autokey.svg?branch=master)](https://travis-ci.org/hex7c0/autokey)
-[![devDependency Status](https://david-dm.org/hex7c0/autokey/dev-status.svg)](https://david-dm.org/hex7c0/autokey#info=devDependencies)
+[![Dependency Status](https://david-dm.org/hex7c0/autokey/status.svg)](https://david-dm.org/hex7c0/autokey)
 
 [Autokey](http://en.wikipedia.org/wiki/Autokey_cipher) stream cipher
 
