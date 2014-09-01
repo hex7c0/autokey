@@ -1,5 +1,5 @@
 /*
- * autokey v1.3.2
+ * autokey v1.3.3
  * (c) hex7c0 http://supergiovane.tk/#/autokey
  * Licensed under GPLv3
  */
