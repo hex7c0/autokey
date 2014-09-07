@@ -14,13 +14,13 @@
  */
 // import
 try {
-    var autokey = require('../index.min.js'); // use require('autokey') instead
+    var autokey = require('../index.min.js'); // use require('autokey')
 } catch (MODULE_NOT_FOUND) {
     console.error(MODULE_NOT_FOUND);
     process.exit(1);
 }
 
-var a = new Buffer('pi'); // key
+var a = new Buffer('pippo'); // key
 var b = new Buffer('ciao'); // data
 var cipher = autokey(a);
 

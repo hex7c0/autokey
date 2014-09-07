@@ -14,7 +14,7 @@
  */
 // import
 try {
-    var autokey = require('../index.min.js'); // use require('autokey') instead
+    var autokey = require('../index.min.js'); // use require('autokey')
     var fs = require('fs');
 } catch (MODULE_NOT_FOUND) {
     console.error(MODULE_NOT_FOUND);
@@ -27,29 +27,29 @@ var cipher = autokey(a);
 
 var d = cipher.encodeBuffer(b); // encrypt
 
-console.log('original: ' + b.toString());
+console.log('original:\n' + b.toString());
 
 // use {encoding: null} when you write buffer
-fs.writeFile('crypted',d,{
+fs.writeFile('crypted', d, {
     encoding: null
-},function(err) {
+}, function(err) {
 
     if (err) {
         console.log(err);
     } else {
-        console.log('encrypt: ' + d);
+        console.log('\nencrypt:\n' + d + '\n');
     }
 });
 
 // use {encoding: null} when you read buffer
-fs.readFile('crypted',{
+fs.readFile('crypted', {
     encoding: null
-},function(err,data) {
+}, function(err, data) {
 
     if (err) {
         console.log(err);
     } else {
         var e = cipher.decodeBuffer(data); // decrypt
-        console.log('decrypt: ' + e.toString());
+        console.log('decrypt:\n' + e.toString());
     }
 });

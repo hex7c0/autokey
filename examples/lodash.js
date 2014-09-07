@@ -14,7 +14,7 @@
  */
 // import
 try {
-    var autokey = require('../index.min.js'); // use require('autokey') instead
+    var autokey = require('../index.min.js'); // use require('autokey')
 } catch (MODULE_NOT_FOUND) {
     console.error(MODULE_NOT_FOUND);
     process.exit(1);
@@ -22,7 +22,7 @@ try {
 
 var a = 'pippo'; // key
 var b = 'ciao'; // data
-var cipher = autokey(a,true);
+var cipher = autokey(a, true);
 
 var d = cipher.encodeString(b); // encrypt
 
