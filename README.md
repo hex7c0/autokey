@@ -4,9 +4,10 @@
 [![Build Status](https://travis-ci.org/hex7c0/autokey.svg?branch=master)](https://travis-ci.org/hex7c0/autokey)
 [![Dependency Status](https://david-dm.org/hex7c0/autokey/status.svg)](https://david-dm.org/hex7c0/autokey)
 
-[Autokey](http://en.wikipedia.org/wiki/Autokey_cipher) stream cipher
+[Autokey](http://en.wikipedia.org/wiki/Autokey_cipher) stream cipher.
+You can encode/decode with different [encodings](http://nodejs.org/api/buffer.html#apicontent) for *String only.
 
-my original [python code](https://github.com/hex7c0/EncryptoPy/blob/master/modules/autokey.py)
+My original [python code](https://github.com/hex7c0/EncryptoPy/blob/master/modules/autokey.py)
 
 ## Installation
 
@@ -24,52 +25,54 @@ git clone git://github.com/hex7c0/autokey.git
 
 inside nodejs project
 ```js
-var autokey = require('autokey')('secret_key');
+var rc4 = require('autokey');
 
-autokey.encodeString('foo');
+var cipher = rc4('secret_key');
+var d = cipher.encodeString('ciao');
+var e = cipher.decodeString(d);
 ```
 
 ### Methods
 
 change your key (warning)
 ```js
-autokey.change('foo');
+cipher.change('foo');
 ```
 
 encode string data
 ```js
-autokey.encodeString('string');
+cipher.encodeString('string');
 ```
 
-encode array
+encode array data
 ```js
-autokey.encodeArray([49,50,51]);
+cipher.encodeArray([49,50,51]);
 ```
 
-encode buffer
+encode buffer data
 ```js
-autokey.codeBuffer(new Buffer('ciao'));
+cipher.encodeBuffer(new Buffer('ciao'));
 ```
 
-encode string, byte or buffer
+encode string or byte or buffer (switch type)
 ```js
-autokey.encode(your_data);
+cipher.encode(your_data);
 ```
 
 for decoding, change "encode*" to "decode*"
 ```js
-autokey.decode('string');
+cipher.decode(your_data);
 ```
 
-### autokey(key,[lodash])
+### autokey(password,[lodash])
 
-#### key
+#### password
 
- - `key` - **String | Array | Buffer** Your key *(default "throw Error")*
+ - `password` - **String | Array | Buffer** Your key *(default "throw Error")*
 
 #### [lodash]
 
- - `lodash` - **Boolean** Use lodash library (check [benchmark](https://github.com/hex7c0/autokey/tree/master/test/benchmark.js) test for right decision) *(default "disabled")*
+ - `lodash` - **Boolean** Use [lodash](http://lodash.com/) library (check [benchmark](https://github.com/hex7c0/autokey/tree/master/test/benchmark.js) test for right decision) *(default "disabled")*
 
 ## Examples
 

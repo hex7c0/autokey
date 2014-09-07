@@ -1,3 +1,10 @@
+v2.0.0 / 2014-09-07
+==================
+
+  * Code rewrite
+  * Rename "key" to password (options)
+  * Add "input_encoding" and "output_encoding" for "encodeString" and "decodeString"
+
 v1.3.4 / 2014-09-06
 ==================
 
