@@ -28,10 +28,11 @@ var min = __dirname + '/min/lib/';
  * @params {Boolean} [lodash] - flag
  * @return {AUTOKEY}
  */
-module.exports = function autokey(password, lodash) {
+function autokey(password, lodash) {
 
     if (lodash) {
         return require(min + 'lodash/index.js')(password);
     }
     return require(min + 'normal/index.js')(password);
-};
+}
+module.exports = autokey;
