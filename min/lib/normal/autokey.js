@@ -1,1 +1,53 @@
-"use strict";function body(a,b){for(var c=a,d=[],e=b,f=e.length,g=f,h=0,i=c.length;i>h;h++)g>0?(d[h]=(c[h]+e.shift())%256,g--):d[h]=(c[h]+c[h-f])%256;return new Buffer(d)}function _body(a,b){for(var c=a,d=[],e=b,f=e.length,g=f,h=0,i=c.length;i>h;h++)g>0?(d[h]=(c[h]-e.shift())%256,g--):d[h]=(c[h]-d[h-f])%256;return new Buffer(d)}function AUTOKEY(a){this.key=null,this.change(a)}module.exports=function(a){return new AUTOKEY(a)},AUTOKEY.prototype.change=function(a){if(Array.isArray(a))this.key=a;else{if("string"!=typeof a&&!Buffer.isBuffer(a))throw new Error("Invalid data");this.key=new Array(a.legth);for(var b=new Buffer(a),c=0,d=b.length;d>c;c++)this.key[c]=b[c]}},AUTOKEY.prototype.encodeString=function(a,b,c){var d=new Buffer(a,b||"utf8");return body(d,this.key.slice()).toString(c||"hex")},AUTOKEY.prototype.encodeArray=function(a){for(var b=body(new Buffer(a),this.key.slice()),c=new Array(b.length),d=0,e=b.length;e>d;d++)c[d]=b[d];return c},AUTOKEY.prototype.encodeBuffer=function(a){return body(a,this.key.slice())},AUTOKEY.prototype.encode=function(a,b,c){if("string"==typeof a)return this.encodeString(a,b,c);if(Array.isArray(a))return this.encodeArray(a);if(Buffer.isBuffer(a))return this.encodeBuffer(a);throw new Error("Invalid data")},AUTOKEY.prototype.decodeString=function(a,b,c){var d=new Buffer(a,b||"hex");return _body(d,this.key.slice()).toString(c||"utf8")},AUTOKEY.prototype.decodeArray=function(a){for(var b=_body(new Buffer(a),this.key.slice()),c=new Array(b.length),d=0,e=b.length;e>d;d++)c[d]=b[d];return c},AUTOKEY.prototype.decodeBuffer=function(a){return _body(a,this.key.slice())},AUTOKEY.prototype.decode=function(a,b,c){if("string"==typeof a)return this.decodeString(a,b,c);if(Array.isArray(a))return this.decodeArray(a);if(Buffer.isBuffer(a))return this.decodeBuffer(a);throw new Error("Invalid data")};
+"use strict";
+
+function body(raw, key) {
+    for (var str = raw, res = [], first = key, cipher = first.length, ciphers = cipher, i = 0, ii = str.length; ii > i; i++) ciphers > 0 ? (res[i] = (str[i] + first.shift()) % 256, 
+    ciphers--) : res[i] = (str[i] + str[i - cipher]) % 256;
+    return new Buffer(res);
+}
+
+function _body(raw, key) {
+    for (var str = raw, res = [], first = key, cipher = first.length, ciphers = cipher, i = 0, ii = str.length; ii > i; i++) ciphers > 0 ? (res[i] = (str[i] - first.shift()) % 256, 
+    ciphers--) : res[i] = (str[i] - res[i - cipher]) % 256;
+    return new Buffer(res);
+}
+
+function AUTOKEY(key) {
+    this.key = null, this.change(key);
+}
+
+module.exports = function(key) {
+    return new AUTOKEY(key);
+}, AUTOKEY.prototype.change = function(key) {
+    if (Array.isArray(key)) this.key = key; else {
+        if ("string" != typeof key && !Buffer.isBuffer(key)) throw new Error("Invalid data");
+        this.key = new Array(key.legth);
+        for (var keys = new Buffer(key), i = 0, ii = keys.length; ii > i; i++) this.key[i] = keys[i];
+    }
+}, AUTOKEY.prototype.encodeString = function(str, input_encoding, output_encoding) {
+    var out = new Buffer(str, input_encoding || "utf8");
+    return body(out, this.key.slice()).toString(output_encoding || "hex");
+}, AUTOKEY.prototype.encodeArray = function(arr) {
+    for (var parse = body(new Buffer(arr), this.key.slice()), returned = new Array(parse.length), i = 0, ii = parse.length; ii > i; i++) returned[i] = parse[i];
+    return returned;
+}, AUTOKEY.prototype.encodeBuffer = function(buff) {
+    return body(buff, this.key.slice());
+}, AUTOKEY.prototype.encode = function(boh, input_encoding, output_encoding) {
+    if ("string" == typeof boh) return this.encodeString(boh, input_encoding, output_encoding);
+    if (Array.isArray(boh)) return this.encodeArray(boh);
+    if (Buffer.isBuffer(boh)) return this.encodeBuffer(boh);
+    throw new Error("Invalid data");
+}, AUTOKEY.prototype.decodeString = function(str, input_encoding, output_encoding) {
+    var out = new Buffer(str, input_encoding || "hex");
+    return _body(out, this.key.slice()).toString(output_encoding || "utf8");
+}, AUTOKEY.prototype.decodeArray = function(arr) {
+    for (var parse = _body(new Buffer(arr), this.key.slice()), returned = new Array(parse.length), i = 0, ii = parse.length; ii > i; i++) returned[i] = parse[i];
+    return returned;
+}, AUTOKEY.prototype.decodeBuffer = function(buff) {
+    return _body(buff, this.key.slice());
+}, AUTOKEY.prototype.decode = function(boh, input_encoding, output_encoding) {
+    if ("string" == typeof boh) return this.decodeString(boh, input_encoding, output_encoding);
+    if (Array.isArray(boh)) return this.decodeArray(boh);
+    if (Buffer.isBuffer(boh)) return this.decodeBuffer(boh);
+    throw new Error("Invalid data");
+};

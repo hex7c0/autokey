@@ -1,1 +1,64 @@
-"use strict";function body(a,b){var c=a,d=_.size(b),e=d;return new Buffer(_.map(c,function(a,f){return e-->0?(a+b.shift())%256:(a+c[f-d])%256}))}function _body(a,b){for(var c=a,d=_.size(b),e=d,f=[],g=0,h=_.size(c);h>g;g++)f[g]=e-->0?(c[g]-b.shift())%256:(c[g]-f[g-d])%256;return new Buffer(f)}function AUTOKEY(a){this.key=null,this.change(a)}try{var _=require("lodash")}catch(MODULE_NOT_FOUND){console.error(MODULE_NOT_FOUND),process.exit(1)}module.exports=function(a){return new AUTOKEY(a)},AUTOKEY.prototype.change=function(a){if(_.isArray(a))this.key=a;else{if(!_.isString(a)&&!Buffer.isBuffer(a))throw new Error("Invalid data");this.key=_.map(new Buffer(a),function(a){return a})}},AUTOKEY.prototype.encodeString=function(a,b,c){var d=new Buffer(a,b||"utf8");return body(d,this.key.slice()).toString(c||"hex")},AUTOKEY.prototype.encodeArray=function(a){var b=body(new Buffer(a),this.key.slice());return _.map(b,function(a){return a})},AUTOKEY.prototype.encodeBuffer=function(a){return body(a,this.key.slice())},AUTOKEY.prototype.encode=function(a,b,c){if(_.isString(a))return this.encodeString(a,b,c);if(_.isArray(a))return this.encodeArray(a);if(Buffer.isBuffer(a))return this.encodeBuffer(a);throw new Error("Invalid data")},AUTOKEY.prototype.decodeString=function(a,b,c){var d=new Buffer(a,b||"hex");return _body(d,this.key.slice()).toString(c||"utf8")},AUTOKEY.prototype.decodeArray=function(a){var b=_body(new Buffer(a),this.key.slice());return _.map(b,function(a){return a})},AUTOKEY.prototype.decodeBuffer=function(a){return _body(a,this.key.slice())},AUTOKEY.prototype.decode=function(a,b,c){if(_.isString(a))return this.decodeString(a,b,c);if(_.isArray(a))return this.decodeArray(a);if(Buffer.isBuffer(a))return this.decodeBuffer(a);throw new Error("Invalid data")};
+"use strict";
+
+function body(raw, key) {
+    var str = raw, len = _.size(key), cc = len;
+    return new Buffer(_.map(str, function(num, index) {
+        return cc-- > 0 ? (num + key.shift()) % 256 : (num + str[index - len]) % 256;
+    }));
+}
+
+function _body(raw, key) {
+    for (var str = raw, len = _.size(key), cc = len, res = [], i = 0, ii = _.size(str); ii > i; i++) res[i] = cc-- > 0 ? (str[i] - key.shift()) % 256 : (str[i] - res[i - len]) % 256;
+    return new Buffer(res);
+}
+
+function AUTOKEY(key) {
+    this.key = null, this.change(key);
+}
+
+try {
+    var _ = require("lodash");
+} catch (MODULE_NOT_FOUND) {
+    console.error(MODULE_NOT_FOUND), process.exit(1);
+}
+
+module.exports = function(key) {
+    return new AUTOKEY(key);
+}, AUTOKEY.prototype.change = function(key) {
+    if (_.isArray(key)) this.key = key; else {
+        if (!_.isString(key) && !Buffer.isBuffer(key)) throw new Error("Invalid data");
+        this.key = _.map(new Buffer(key), function(num) {
+            return num;
+        });
+    }
+}, AUTOKEY.prototype.encodeString = function(str, input_encoding, output_encoding) {
+    var out = new Buffer(str, input_encoding || "utf8");
+    return body(out, this.key.slice()).toString(output_encoding || "hex");
+}, AUTOKEY.prototype.encodeArray = function(arr) {
+    var parse = body(new Buffer(arr), this.key.slice());
+    return _.map(parse, function(num) {
+        return num;
+    });
+}, AUTOKEY.prototype.encodeBuffer = function(buff) {
+    return body(buff, this.key.slice());
+}, AUTOKEY.prototype.encode = function(boh, input_encoding, output_encoding) {
+    if (_.isString(boh)) return this.encodeString(boh, input_encoding, output_encoding);
+    if (_.isArray(boh)) return this.encodeArray(boh);
+    if (Buffer.isBuffer(boh)) return this.encodeBuffer(boh);
+    throw new Error("Invalid data");
+}, AUTOKEY.prototype.decodeString = function(str, input_encoding, output_encoding) {
+    var out = new Buffer(str, input_encoding || "hex");
+    return _body(out, this.key.slice()).toString(output_encoding || "utf8");
+}, AUTOKEY.prototype.decodeArray = function(arr) {
+    var parse = _body(new Buffer(arr), this.key.slice());
+    return _.map(parse, function(num) {
+        return num;
+    });
+}, AUTOKEY.prototype.decodeBuffer = function(buff) {
+    return _body(buff, this.key.slice());
+}, AUTOKEY.prototype.decode = function(boh, input_encoding, output_encoding) {
+    if (_.isString(boh)) return this.decodeString(boh, input_encoding, output_encoding);
+    if (_.isArray(boh)) return this.decodeArray(boh);
+    if (Buffer.isBuffer(boh)) return this.decodeBuffer(boh);
+    throw new Error("Invalid data");
+};
