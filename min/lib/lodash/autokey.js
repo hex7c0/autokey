@@ -16,11 +16,7 @@ function AUTOKEY(key) {
     this.key = null, this.change(key);
 }
 
-try {
-    var _ = require("lodash");
-} catch (MODULE_NOT_FOUND) {
-    console.error(MODULE_NOT_FOUND), process.exit(1);
-}
+var _ = require("lodash");
 
 module.exports = function(key) {
     return new AUTOKEY(key);

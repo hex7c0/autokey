@@ -2,7 +2,6 @@
 /**
  * @file autokey main
  * @module autokey
- * @package autokey
  * @subpackage main
  * @version 2.0.0
  * @author hex7c0 <hex7c0@gmail.com>
@@ -24,15 +23,15 @@ var min = __dirname + '/min/lib/';
  * 
  * @exports autokey
  * @function autokey
- * @params {String} password - user password
- * @params {Boolean} [lodash] - flag
+ * @param {String|Array|Buffer} password - user key
+ * @param {Boolean} [lodash] - flag
  * @return {AUTOKEY}
  */
 function autokey(password, lodash) {
 
-    if (lodash) {
-        return require(min + 'lodash/index.js')(password);
-    }
-    return require(min + 'normal/index.js')(password);
+  if (lodash) {
+    return require(min + 'lodash/index.js')(password);
+  }
+  return require(min + 'normal/index.js')(password);
 }
 module.exports = autokey;
