@@ -12,14 +12,8 @@
 /*
  * initialize module
  */
-// import
-try {
-    var autokey = require('../index.min.js'); // use require('autokey')
-    var fs = require('fs');
-} catch (MODULE_NOT_FOUND) {
-    console.error(MODULE_NOT_FOUND);
-    process.exit(1);
-}
+var autokey = require('..'); // use require('autokey') instead
+var fs = require('fs');
 
 var a = 'hex7c0'; // key
 var b = new Buffer('ciao I\'m hex7c0\nHow are you?\n:D'); // data
@@ -31,25 +25,25 @@ console.log('original:\n' + b.toString());
 
 // use {encoding: null} when you write buffer
 fs.writeFile('crypted', d, {
-    encoding: null
+  encoding: null
 }, function(err) {
 
-    if (err) {
-        console.log(err);
-    } else {
-        console.log('\nencrypt:\n' + d + '\n');
-    }
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('\nencrypt:\n' + d + '\n');
+  }
 });
 
 // use {encoding: null} when you read buffer
 fs.readFile('crypted', {
-    encoding: null
+  encoding: null
 }, function(err, data) {
 
-    if (err) {
-        console.log(err);
-    } else {
-        var e = cipher.decodeBuffer(data); // decrypt
-        console.log('decrypt:\n' + e.toString());
-    }
+  if (err) {
+    console.log(err);
+  } else {
+    var e = cipher.decodeBuffer(data); // decrypt
+    console.log('decrypt:\n' + e.toString());
+  }
 });

@@ -12,13 +12,7 @@
 /*
  * initialize module
  */
-// import
-try {
-    var autokey = require('../index.min.js'); // use require('autokey')
-} catch (MODULE_NOT_FOUND) {
-    console.error(MODULE_NOT_FOUND);
-    process.exit(1);
-}
+var autokey = require('..'); // use require('autokey') instead
 
 var a = 'pippo'; // key
 var b = 'ciao'; // data
