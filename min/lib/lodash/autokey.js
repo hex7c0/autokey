@@ -12,47 +12,47 @@ function _body(raw, key) {
     return new Buffer(res);
 }
 
-function AUTOKEY(key) {
+function Autokey(key) {
     this.key = null, this.change(key);
 }
 
 var _ = require("lodash");
 
 module.exports = function(key) {
-    return new AUTOKEY(key);
-}, AUTOKEY.prototype.change = function(key) {
+    return new Autokey(key);
+}, Autokey.prototype.change = function(key) {
     if (_.isArray(key)) this.key = key; else {
         if (!_.isString(key) && !Buffer.isBuffer(key)) throw new Error("Invalid data");
         this.key = _.map(new Buffer(key), function(num) {
             return num;
         });
     }
-}, AUTOKEY.prototype.encodeString = function(str, input_encoding, output_encoding) {
+}, Autokey.prototype.encodeString = function(str, input_encoding, output_encoding) {
     var out = new Buffer(str, input_encoding || "utf8");
     return body(out, this.key.slice()).toString(output_encoding || "hex");
-}, AUTOKEY.prototype.encodeArray = function(arr) {
+}, Autokey.prototype.encodeArray = function(arr) {
     var parse = body(new Buffer(arr), this.key.slice());
     return _.map(parse, function(num) {
         return num;
     });
-}, AUTOKEY.prototype.encodeBuffer = function(buff) {
+}, Autokey.prototype.encodeBuffer = function(buff) {
     return body(buff, this.key.slice());
-}, AUTOKEY.prototype.encode = function(boh, input_encoding, output_encoding) {
+}, Autokey.prototype.encode = function(boh, input_encoding, output_encoding) {
     if (_.isString(boh)) return this.encodeString(boh, input_encoding, output_encoding);
     if (_.isArray(boh)) return this.encodeArray(boh);
     if (Buffer.isBuffer(boh)) return this.encodeBuffer(boh);
     throw new Error("Invalid data");
-}, AUTOKEY.prototype.decodeString = function(str, input_encoding, output_encoding) {
+}, Autokey.prototype.decodeString = function(str, input_encoding, output_encoding) {
     var out = new Buffer(str, input_encoding || "hex");
     return _body(out, this.key.slice()).toString(output_encoding || "utf8");
-}, AUTOKEY.prototype.decodeArray = function(arr) {
+}, Autokey.prototype.decodeArray = function(arr) {
     var parse = _body(new Buffer(arr), this.key.slice());
     return _.map(parse, function(num) {
         return num;
     });
-}, AUTOKEY.prototype.decodeBuffer = function(buff) {
+}, Autokey.prototype.decodeBuffer = function(buff) {
     return _body(buff, this.key.slice());
-}, AUTOKEY.prototype.decode = function(boh, input_encoding, output_encoding) {
+}, Autokey.prototype.decode = function(boh, input_encoding, output_encoding) {
     if (_.isString(boh)) return this.decodeString(boh, input_encoding, output_encoding);
     if (_.isArray(boh)) return this.decodeArray(boh);
     if (Buffer.isBuffer(boh)) return this.decodeBuffer(boh);

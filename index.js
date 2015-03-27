@@ -25,7 +25,7 @@ var min = __dirname + '/min/lib/';
  * @function autokey
  * @param {String|Array|Buffer} password - user key
  * @param {Boolean} [lodash] - flag
- * @return {AUTOKEY}
+ * @return {Autokey}
  */
 function autokey(password, lodash) {
 
