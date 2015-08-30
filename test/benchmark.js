@@ -11,10 +11,10 @@
 /*
  * initialize module
  */
-// import
-var autokey = require('..');
 var _ = require('lodash'); // cache
 var assert = require('assert');
+var aukN = require('..').normal;
+var aukL = require('..').lodash;
 // load
 var a = 'very_long_key_SuPeR_s1cu73';
 var b = 'Loremipsumdolorsitamet,consecteturadipiscingelit.Integerluctusarcuvitaeplaceratinterdum.Fuscenecconvallisleo.Vivamusacconsequatfelis,euultriciesquam.Nullapretiumdiamquisviverratincidunt.Nuncidanteultrices,auctorauguein,rhoncusdui.Maurisvulputateaorcieufacilisis.Quisquepharetraporttitornisi,necdapibusrisusfeugiatvitae.Proinegeturnasitametmagnasempertempussedeuaugue.Maecenasetlectusegetmetusmolestieconsecteturetsitametmauris.Praesentaanteinligulainterdumcommodo.Sedconsequatlacusvitaepharetravolutpat.Praesentvelaugueactortorsollicitudinposuereeusitamet.';
@@ -48,14 +48,14 @@ describe('benchmark', function() {
         var start = process.hrtime();
         for (var i = 0; i < 10; i++) {
 
-          var cipher = autokey(a);
+          var cipher = aukN(a);
           var d = cipher.encodeString(b); // encrypt
           var e = cipher.decodeString(d); // decrypt
           assert.deepEqual(b, e, 'clear');
           assert.notDeepEqual(b, d, 'orig - encrypt');
           assert.notDeepEqual(e, d, 'encrypt - decrypt');
           // reverse
-          var cipher = autokey(b);
+          var cipher = aukN(b);
           var d = cipher.encodeString(a); // encrypt
           var e = cipher.decodeString(d); // decrypt
           assert.deepEqual(a, e, 'clear');
@@ -67,20 +67,19 @@ describe('benchmark', function() {
           ((diff[0] * 1e9 + diff[1]) / 1000000).toFixed(3));
         done();
       });
-
       it('lodash - should return same string', function(done) {
 
         var start = process.hrtime();
         for (var i = 0; i < 10; i++) {
 
-          var cipher = autokey(a, true);
+          var cipher = aukL(a);
           var d = cipher.encodeString(b); // encrypt
           var e = cipher.decodeString(d); // decrypt
           assert.deepEqual(b, e, 'clear');
           assert.notDeepEqual(b, d, 'orig - encrypt');
           assert.notDeepEqual(e, d, 'encrypt - decrypt');
           // reverse
-          var cipher = autokey(b, true);
+          var cipher = aukL(b);
           var d = cipher.encodeString(a); // encrypt
           var e = cipher.decodeString(d); // decrypt
           assert.deepEqual(a, e, 'clear');
@@ -101,14 +100,14 @@ describe('benchmark', function() {
         var start = process.hrtime();
         for (var i = 0; i < 10; i++) {
 
-          var cipher = autokey(aa);
+          var cipher = aukN(aa);
           var d = cipher.encodeArray(bb); // encrypt
           var e = cipher.decodeArray(d); // decrypt
           assert.deepEqual(bb, e, 'clear');
           assert.notDeepEqual(bb, d, 'orig - encrypt');
           assert.notDeepEqual(e, d, 'encrypt - decrypt');
           // reverse
-          var cipher = autokey(bb);
+          var cipher = aukN(bb);
           var d = cipher.encodeArray(aa); // encrypt
           var e = cipher.decodeArray(d); // decrypt
           assert.deepEqual(aa, e, 'clear');
@@ -120,20 +119,19 @@ describe('benchmark', function() {
           ((diff[0] * 1e9 + diff[1]) / 1000000).toFixed(3));
         done();
       });
-
       it('lodash - should return same array', function(done) {
 
         var start = process.hrtime();
         for (var i = 0; i < 10; i++) {
 
-          var cipher = autokey(aa, true);
+          var cipher = aukL(aa);
           var d = cipher.encodeArray(bb); // encrypt
           var e = cipher.decodeArray(d); // decrypt
           assert.deepEqual(bb, e, 'clear');
           assert.notDeepEqual(bb, d, 'orig - encrypt');
           assert.notDeepEqual(e, d, 'encrypt - decrypt');
           // reverse
-          var cipher = autokey(bb, true);
+          var cipher = aukL(bb);
           var d = cipher.encodeArray(aa); // encrypt
           var e = cipher.decodeArray(d); // decrypt
           assert.deepEqual(aa, e, 'clear');
@@ -154,14 +152,14 @@ describe('benchmark', function() {
         var start = process.hrtime();
         for (var i = 0; i < 10; i++) {
 
-          var cipher = autokey(aaa);
+          var cipher = aukN(aaa);
           var d = cipher.encodeBuffer(bbb); // encrypt
           var e = cipher.decodeBuffer(d); // decrypt
           assert.deepEqual(bbb, e, 'clear');
           assert.notDeepEqual(bbb, d, 'orig - encrypt');
           assert.notDeepEqual(e, d, 'encrypt - decrypt');
           // reverse
-          var cipher = autokey(bbb);
+          var cipher = aukN(bbb);
           var d = cipher.encodeBuffer(aaa); // encrypt
           var e = cipher.decodeBuffer(d); // decrypt
           assert.deepEqual(aaa, e, 'clear');
@@ -173,20 +171,19 @@ describe('benchmark', function() {
           ((diff[0] * 1e9 + diff[1]) / 1000000).toFixed(3));
         done();
       });
-
       it('lodash - should return same buffer', function(done) {
 
         var start = process.hrtime();
         for (var i = 0; i < 10; i++) {
 
-          var cipher = autokey(aaa, true);
+          var cipher = aukL(aaa);
           var d = cipher.encodeBuffer(bbb); // encrypt
           var e = cipher.decodeBuffer(d); // decrypt
           assert.deepEqual(bbb, e, 'clear');
           assert.notDeepEqual(bbb, d, 'orig - encrypt');
           assert.notDeepEqual(e, d, 'encrypt - decrypt');
           // reverse
-          var cipher = autokey(bbb, true);
+          var cipher = aukL(bbb);
           var d = cipher.encodeBuffer(aaa); // encrypt
           var e = cipher.decodeBuffer(d); // decrypt
           assert.deepEqual(aaa, e, 'clear');
