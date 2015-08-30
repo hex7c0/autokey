@@ -8,7 +8,7 @@ function body(raw, key) {
 }
 
 function _body(raw, key) {
-    for (var str = raw, len = _.size(key), cc = len, res = [], i = 0, ii = _.size(str); ii > i; i++) cc-- > 0 ? res[i] = (str[i] - key.shift()) % 256 : res[i] = (str[i] - res[i - len]) % 256;
+    for (var str = raw, len = _.size(key), cc = len, res = [], i = 0, ii = _.size(str); ii > i; ++i) cc-- > 0 ? res[i] = (str[i] - key.shift()) % 256 : res[i] = (str[i] - res[i - len]) % 256;
     return new Buffer(res);
 }
 
