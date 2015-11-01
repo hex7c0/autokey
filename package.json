@@ -1,5 +1,5 @@
 {
-  "version": "2.2.0",
+  "version": "2.2.1",
   "name": "autokey",
   "description": "autokey stream cipher",
   "keywords": [
@@ -8,7 +8,7 @@
     "cipher"
   ],
   "preferGlobal": false,
-  "homepage": "http://supergiovane.tk/#/autokey",
+  "homepage": "https://github.com/hex7c0/autokey",
   "author": {
     "name": "hex7c0",
     "email": "hex7c0@gmail.com",

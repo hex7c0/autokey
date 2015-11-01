@@ -1,4 +1,4 @@
-# [autokey](http://supergiovane.tk/#/autokey)
+# [autokey](https://github.com/hex7c0/autokey)
 
 [![NPM version](https://img.shields.io/npm/v/autokey.svg)](https://www.npmjs.com/package/autokey)
 [![Linux Status](https://img.shields.io/travis/hex7c0/autokey.svg?label=linux)](https://travis-ci.org/hex7c0/autokey)
