@@ -8,7 +8,7 @@ function __encode(raw, key) {
 }
 
 function __decode(raw, key) {
-    for (var res = [], len = _.size(key), cc = len, i = 0, ii = _.size(raw); ii > i; ++i) cc-- > 0 ? res[i] = (raw[i] - key.shift()) % 256 : res[i] = (raw[i] - res[i - len]) % 256;
+    for (var res = [], len = _.size(key), cc = len, i = 0, ii = _.size(raw); i < ii; ++i) cc-- > 0 ? res[i] = (raw[i] - key.shift()) % 256 : res[i] = (raw[i] - res[i - len]) % 256;
     return new Buffer(res);
 }
 
