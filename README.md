@@ -1,7 +1,7 @@
 # [autokey](https://github.com/hex7c0/autokey)
 
 [![NPM version](https://img.shields.io/npm/v/autokey.svg)](https://www.npmjs.com/package/autokey)
-[![Linux Status](https://img.shields.io/travis/hex7c0/autokey.svg?label=linux)](https://travis-ci.org/hex7c0/autokey)
+[![Linux Status](https://img.shields.io/travis/hex7c0/autokey.svg?label=linux-osx)](https://travis-ci.org/hex7c0/autokey)
 [![Windows Status](https://img.shields.io/appveyor/ci/hex7c0/autokey.svg?label=windows)](https://ci.appveyor.com/project/hex7c0/autokey)
 [![Dependency Status](https://img.shields.io/david/hex7c0/autokey.svg)](https://david-dm.org/hex7c0/autokey)
 [![Coveralls](https://img.shields.io/coveralls/hex7c0/autokey.svg)](https://coveralls.io/r/hex7c0/autokey)
