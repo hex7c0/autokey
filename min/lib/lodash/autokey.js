@@ -1,5 +1,11 @@
 "use strict";
 
+var _ = require("lodash");
+
+module.exports = function(key) {
+    return new Autokey(key);
+};
+
 function __encode(raw, key) {
     var len = _.size(key), cc = len;
     return new Buffer(_.map(raw, function(num, index) {
@@ -16,11 +22,7 @@ function Autokey(key) {
     this.key = null, this.change(key);
 }
 
-var _ = require("lodash");
-
-module.exports = function(key) {
-    return new Autokey(key);
-}, Autokey.prototype.change = function(key) {
+Autokey.prototype.change = function(key) {
     if (!0 === _.isArray(key)) this.key = key; else {
         if (!_.isString(key) && !0 !== Buffer.isBuffer(key)) throw new Error("Invalid data");
         this.key = _.map(new Buffer(key), function(num) {
