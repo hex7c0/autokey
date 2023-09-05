@@ -12,8 +12,8 @@
  * initialize module
  */
 // import
-var autokey = require('..');
-var assert = require('assert');
+let autokey = require('..');
+let assert = require('assert');
 
 /*
  * test module
@@ -167,8 +167,8 @@ describe('autokey', function() {
 
     it('should return same buffer', function(done) {
 
-      a = new Buffer('pippo');
-      b = new Buffer('ciao');
+      a = new Buffer.from('pippo');
+      b = new Buffer.from('ciao');
       var cipher = autokey(a);
       var d = cipher.encodeBuffer(b); // encrypt
       var e = cipher.decodeBuffer(d); // decrypt
@@ -189,8 +189,8 @@ describe('autokey', function() {
     });
     it('should return same buffer. auto', function(done) {
 
-      a = new Buffer('pippo');
-      b = new Buffer('ciao');
+      a = new Buffer.from('pippo');
+      b = new Buffer.from('ciao');
       var cipher = autokey(a);
       var d = cipher.encode(b); // encrypt
       var e = cipher.decode(d); // decrypt
