@@ -1,11 +1,11 @@
 "use strict";
 
-var min = __dirname + "/autokey.js";
+let min = __dirname + "/autokey.js";
 
 function lodash(password) {
     var Class = require(min);
-    if (!password) throw new TypeError("password required");
-    return new Class(password);
+    if (password) return new Class(password);
+    throw new TypeError("password required");
 }
 
 module.exports = lodash;

@@ -1,16 +1,12 @@
 "use strict";
 
-module.exports = function(key) {
-    return new Autokey(key);
-};
-
 function __encode(raw, key) {
-    for (var res = [], cipher = key.length, cc = cipher, i = 0, ii = raw.length; i < ii; ++i) cc-- > 0 ? res[i] = (raw[i] + key.shift()) % 256 : res[i] = (raw[i] + raw[i - cipher]) % 256;
+    for (var res = [], cipher = key.length, cc = cipher, i = 0, ii = raw.length; i < ii; ++i) 0 < cc-- ? res[i] = (raw[i] + key.shift()) % 256 : res[i] = (raw[i] + raw[i - cipher]) % 256;
     return new Buffer(res);
 }
 
 function __decode(raw, key) {
-    for (var res = [], cipher = key.length, cc = cipher, i = 0, ii = raw.length; i < ii; ++i) cc-- > 0 ? res[i] = (raw[i] - key.shift()) % 256 : res[i] = (raw[i] - res[i - cipher]) % 256;
+    for (var res = [], cipher = key.length, cc = cipher, i = 0, ii = raw.length; i < ii; ++i) 0 < cc-- ? res[i] = (raw[i] - key.shift()) % 256 : res[i] = (raw[i] - res[i - cipher]) % 256;
     return new Buffer(res);
 }
 
@@ -18,7 +14,9 @@ function Autokey(key) {
     this.key = null, this.change(key);
 }
 
-Autokey.prototype.change = function(key) {
+module.exports = function(key) {
+    return new Autokey(key);
+}, Autokey.prototype.change = function(key) {
     if (!0 === Array.isArray(key)) this.key = key; else {
         if ("string" != typeof key && !0 !== Buffer.isBuffer(key)) throw new Error("Invalid data");
         this.key = new Array(key.length);

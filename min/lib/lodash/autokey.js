@@ -1,20 +1,18 @@
 "use strict";
 
-var _ = require("lodash");
-
-module.exports = function(key) {
-    return new Autokey(key);
-};
+let _ = require("lodash");
 
 function __encode(raw, key) {
-    var len = _.size(key), cc = len;
-    return new Buffer(_.map(raw, function(num, index) {
-        return cc-- > 0 ? (num + key.shift()) % 256 : (num + raw[index - len]) % 256;
+    let len = _.size(key), cc = len;
+    return new Buffer.from(_.map(raw, function(num, index) {
+        return 0 < cc-- ? (num + key.shift()) % 256 : (num + raw[index - len]) % 256;
     }));
 }
 
 function __decode(raw, key) {
-    for (var res = [], len = _.size(key), cc = len, i = 0, ii = _.size(raw); i < ii; ++i) cc-- > 0 ? res[i] = (raw[i] - key.shift()) % 256 : res[i] = (raw[i] - res[i - len]) % 256;
+    var res = [], len = _.size(key);
+    let cc = len;
+    for (let i = 0, ii = _.size(raw); i < ii; ++i) 0 < cc-- ? res[i] = (raw[i] - key.shift()) % 256 : res[i] = (raw[i] - res[i - len]) % 256;
     return new Buffer(res);
 }
 
@@ -22,18 +20,20 @@ function Autokey(key) {
     this.key = null, this.change(key);
 }
 
-Autokey.prototype.change = function(key) {
+module.exports = function(key) {
+    return new Autokey(key);
+}, Autokey.prototype.change = function(key) {
     if (!0 === _.isArray(key)) this.key = key; else {
         if (!_.isString(key) && !0 !== Buffer.isBuffer(key)) throw new Error("Invalid data");
-        this.key = _.map(new Buffer(key), function(num) {
+        this.key = _.map(new Buffer.from(key), function(num) {
             return num;
         });
     }
 }, Autokey.prototype.encodeString = function(str, input_encoding, output_encoding) {
-    return __encode(new Buffer(str, input_encoding || "utf8"), this.key.slice()).toString(output_encoding || "hex");
+    return __encode(new Buffer.from(str, input_encoding || "utf8"), this.key.slice()).toString(output_encoding || "hex");
 }, Autokey.prototype.encodeArray = function(arr) {
-    var parse = __encode(new Buffer(arr), this.key.slice());
-    return _.map(parse, function(num) {
+    arr = __encode(new Buffer.from(arr), this.key.slice());
+    return _.map(arr, function(num) {
         return num;
     });
 }, Autokey.prototype.encodeBuffer = function(buff) {
@@ -44,10 +44,10 @@ Autokey.prototype.change = function(key) {
     if (!0 === Buffer.isBuffer(boh)) return this.encodeBuffer(boh);
     throw new Error("Invalid data");
 }, Autokey.prototype.decodeString = function(str, input_encoding, output_encoding) {
-    return __decode(new Buffer(str, input_encoding || "hex"), this.key.slice()).toString(output_encoding || "utf8");
+    return __decode(new Buffer.from(str, input_encoding || "hex"), this.key.slice()).toString(output_encoding || "utf8");
 }, Autokey.prototype.decodeArray = function(arr) {
-    var parse = __decode(new Buffer(arr), this.key.slice());
-    return _.map(parse, function(num) {
+    arr = __decode(new Buffer.from(arr), this.key.slice());
+    return _.map(arr, function(num) {
         return num;
     });
 }, Autokey.prototype.decodeBuffer = function(buff) {

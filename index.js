@@ -12,9 +12,9 @@
 /*
  * initialize module
  */
-var min = __dirname + '/min/lib/';
-var minNormal = min + 'normal/index.js';
-var minLodash = min + 'lodash/index.js';
+let min = __dirname + '/min/lib/';
+let minNormal = min + 'normal/index.js';
+let minLodash = min + 'lodash/index.js';
 
 /*
  * functions

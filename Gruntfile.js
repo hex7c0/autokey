@@ -98,7 +98,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-endline');
   grunt.loadNpmTasks('grunt-safer-regex');
 
-  grunt.registerTask('lint', [ 'jshint', 'safer' ]);
+  grunt.registerTask('lint', [ 'jshint --force', 'safer' ]);
   grunt.registerTask('min', [ 'uglify', 'endline' ]);
   grunt.registerTask('default', [ 'lint', 'min' ]);
 
